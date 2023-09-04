@@ -10,8 +10,16 @@ export default async function materialCategoryRouter(
     materialCategoryController.handleGetMaterialCategoriesRequest
   );
 
+  server.addSchema({
+    $id: "createMaterialCategory",
+    type: "object",
+    required: ["name"],
+    properties: { name: { type: "string" } },
+  });
+
   server.post(
     "/material-categories",
+    { schema: { body: { $ref: "createMaterialCategory#" } } },
     materialCategoryController.handleCreateMaterialCategoryRequest
   );
 
@@ -26,8 +34,18 @@ export default async function materialCategoryRouter(
   });
 
   server.put(
-    "/material-categories",
-    { schema: { body: { $ref: "updateMaterialCategory#" } } },
+    "/material-categories/:id",
+    {
+      schema: {
+        body: { $ref: "updateMaterialCategory#" },
+        params: {
+          type: "object",
+          properties: {
+            id: { type: "number" },
+          },
+        },
+      },
+    },
     materialCategoryController.handleUpdateMaterialCategoryRequest
   );
 }

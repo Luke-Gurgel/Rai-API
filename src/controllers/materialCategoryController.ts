@@ -1,5 +1,8 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { MaterialCategory } from "db/types/MaterialTable";
+import {
+  NewMaterialCategory,
+  MaterialCategoryUpdate,
+} from "db/types/MaterialTable";
 import {
   getMaterialCategories,
   createMaterialCategory,
@@ -19,14 +22,11 @@ const handleGetMaterialCategoriesRequest = async (
 };
 
 const handleCreateMaterialCategoryRequest = async (
-  req: FastifyRequest<{ Body: { materialCategoryName: string } }>,
+  req: FastifyRequest<{ Body: NewMaterialCategory }>,
   res: FastifyReply
 ) => {
   try {
-    if (!req.body.materialCategoryName) {
-      throw new Error("missing required param: materialCategoryName");
-    }
-    const id = await createMaterialCategory(req.body.materialCategoryName);
+    const id = await createMaterialCategory(req.body.name);
     return res.status(201).send(id);
   } catch (error) {
     return res.status(400).send(error);
@@ -34,11 +34,12 @@ const handleCreateMaterialCategoryRequest = async (
 };
 
 const handleUpdateMaterialCategoryRequest = async (
-  req: FastifyRequest<{ Body: MaterialCategory }>,
+  req: FastifyRequest<{ Body: MaterialCategoryUpdate; Params: { id: number } }>,
   res: FastifyReply
 ) => {
   try {
-    await updateMaterialCategory(req.body);
+    const { id } = req.params;
+    await updateMaterialCategory(id, req.body);
     return res.status(200).send();
   } catch (error) {
     return res.status(400).send(error);

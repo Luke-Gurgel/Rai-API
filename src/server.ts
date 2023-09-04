@@ -10,7 +10,7 @@ server.get("/", async function handler(request, reply) {
   return { hello: "world" };
 });
 
-// server.register(require("./routes/materialRouter"));
+server.register(require("./routes/materialRouter"));
 server.register(require("./routes/materialCategoryRouter"));
 
 server

@@ -1,44 +1,43 @@
 import { FastifyRequest, FastifyReply } from "fastify";
+import { NewMaterial, MaterialUpdate } from "db/types/MaterialTable";
 import {
-  getMaterialList,
-  getMaterialCategories,
-  createMaterialCategory,
-} from "@/useCases/materials";
+  getMaterials,
+  createMaterial,
+  updateMaterial,
+} from "@/useCases/materialUseCases";
 
 const handleGetMaterialsRequest = async (
   _: FastifyRequest,
   res: FastifyReply
 ) => {
   try {
-    const materialList = await getMaterialList();
+    const materialList = await getMaterials();
     return res.status(200).send({ materialList });
   } catch (error) {
     return res.status(400).send(error);
   }
 };
 
-const handleGetMaterialCategoriesRequest = async (
-  _: FastifyRequest,
+const handleCreateMaterialRequest = async (
+  req: FastifyRequest<{ Body: NewMaterial }>,
   res: FastifyReply
 ) => {
   try {
-    const materialList = await getMaterialList();
-    return res.status(200).send({ materialList });
+    const { materialId } = await createMaterial(req.body);
+    return res.status(201).send({ materialId });
   } catch (error) {
     return res.status(400).send(error);
   }
 };
 
-const handleCreateMaterialCategoryRequest = async (
-  req: FastifyRequest<{ Body: { materialCategoryName: string } }>,
+const handleUpdateMaterialRequest = async (
+  req: FastifyRequest<{ Body: MaterialUpdate; Params: { id: number } }>,
   res: FastifyReply
 ) => {
   try {
-    if (!req.body.materialCategoryName) {
-      throw new Error("missing required param: materialCategoryName");
-    }
-    const id = await createMaterialCategory(req.body.materialCategoryName);
-    return res.status(201).send({ matericalCategoryId: id });
+    const { id } = req.params;
+    await updateMaterial(id, req.body);
+    return res.status(200).send();
   } catch (error) {
     return res.status(400).send(error);
   }
@@ -46,6 +45,6 @@ const handleCreateMaterialCategoryRequest = async (
 
 export const materialController = {
   handleGetMaterialsRequest,
-  handleGetMaterialCategoriesRequest,
-  handleCreateMaterialCategoryRequest,
+  handleCreateMaterialRequest,
+  handleUpdateMaterialRequest,
 };

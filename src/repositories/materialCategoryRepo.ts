@@ -1,6 +1,9 @@
 import { db } from "@/database";
 import { UpdateResult } from "kysely";
-import { MaterialCategory } from "db/types/MaterialTable";
+import {
+  MaterialCategory,
+  MaterialCategoryUpdate,
+} from "db/types/MaterialTable";
 
 export interface MaterialCategoryRepo {
   getAll: () => Promise<MaterialCategory[]>;
@@ -8,7 +11,8 @@ export interface MaterialCategoryRepo {
     materialCategoryId: number;
   }>;
   updateById: (
-    updatedMaterialCategory: MaterialCategory
+    id: number,
+    update: MaterialCategoryUpdate
   ) => Promise<UpdateResult>;
 }
 
@@ -25,16 +29,14 @@ const create = (
 };
 
 const updateById = (
-  updatedMaterialCategory: MaterialCategory
+  id: number,
+  update: MaterialCategoryUpdate
 ): Promise<UpdateResult> => {
+  delete update.materialCategoryId;
   return db
     .updateTable("materialCategory")
-    .set({ name: updatedMaterialCategory.name })
-    .where(
-      "materialCategoryId",
-      "=",
-      updatedMaterialCategory.materialCategoryId
-    )
+    .set({ ...update })
+    .where("materialCategoryId", "=", id)
     .executeTakeFirst();
 };
 

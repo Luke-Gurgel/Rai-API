@@ -1,8 +1,8 @@
 import { materialCategoryRepo } from "@/repositories/materialCategoryRepo";
-import { MaterialCategory } from "db/types/MaterialTable";
+import { MaterialCategoryUpdate } from "db/types/MaterialTable";
 
-export const createMaterialCategory = async (materialCategoryName: string) => {
-  return await materialCategoryRepo.create(materialCategoryName);
+export const createMaterialCategory = async (name: string) => {
+  return await materialCategoryRepo.create(name);
 };
 
 export const getMaterialCategories = async () => {
@@ -10,7 +10,8 @@ export const getMaterialCategories = async () => {
 };
 
 export const updateMaterialCategory = async (
-  updatedMaterialCategory: MaterialCategory
+  id: number,
+  update: MaterialCategoryUpdate
 ) => {
-  await materialCategoryRepo.updateById(updatedMaterialCategory);
+  await materialCategoryRepo.updateById(id, update);
 };
