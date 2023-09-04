@@ -4,7 +4,7 @@ import {
   getMaterials,
   createMaterial,
   updateMaterial,
-} from "@/useCases/materialUseCases";
+} from "@/2_useCases/materialUseCases";
 
 const handleGetMaterialsRequest = async (
   _: FastifyRequest,

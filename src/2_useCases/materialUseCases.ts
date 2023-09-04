@@ -1,4 +1,4 @@
-import { materialRepo } from "@/repositories/materialRepo";
+import { materialRepo } from "@/3_repositories/materialRepo";
 import { NewMaterial, MaterialUpdate } from "db/types/MaterialTable";
 
 export const getMaterials = async () => {

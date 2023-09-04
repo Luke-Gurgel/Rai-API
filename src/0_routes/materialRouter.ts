@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
-import { materialController } from "@/controllers/materialController";
+import { materialController } from "@/1_controllers/materialController";
 
 export default async function materialRouter(
   server: FastifyInstance,

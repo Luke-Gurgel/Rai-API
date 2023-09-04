@@ -1,4 +1,4 @@
-import { materialCategoryRepo } from "@/repositories/materialCategoryRepo";
+import { materialCategoryRepo } from "@/3_repositories/materialCategoryRepo";
 import { MaterialCategoryUpdate } from "db/types/MaterialTable";
 
 export const createMaterialCategory = async (name: string) => {

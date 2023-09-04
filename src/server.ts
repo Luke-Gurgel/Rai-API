@@ -10,8 +10,8 @@ server.get("/", async function handler(request, reply) {
   return { hello: "world" };
 });
 
-server.register(require("./routes/materialRouter"));
-server.register(require("./routes/materialCategoryRouter"));
+server.register(require("./0_routes/materialRouter"));
+server.register(require("./0_routes/materialCategoryRouter"));
 
 server
   .listen({ port: Number(PORT), host: "0.0.0.0" })

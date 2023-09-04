@@ -7,7 +7,7 @@ import {
   getMaterialCategories,
   createMaterialCategory,
   updateMaterialCategory,
-} from "@/useCases/materialCategoryUseCases";
+} from "@/2_useCases/materialCategoryUseCases";
 
 const handleGetMaterialCategoriesRequest = async (
   _: FastifyRequest,
