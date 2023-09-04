@@ -80,6 +80,3 @@ Para gerar uma build de produção, basta rodar o comando `npm run build` e um n
 
 ## Rodando os Testes
 Use o comando `npm test` para rodar todos os testes. Caso queira rodar apenas um arquivo de teste, basta passar o nome do arquivo para o comando, ex.: `npm test someService.test.ts`.
-
-## Rodando o Prisma Studio
-O Prisma Studio fornece uma interface através da qual podemos interagir com o banco de dados. Use o comando `npm run db:studio` para rodar o Prisma Studio na porta 5555.
