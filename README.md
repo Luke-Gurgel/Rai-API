@@ -1,6 +1,7 @@
 ## Antes de começar (pré-requisitos)
 - Docker
 - docker compose CLI
+- arquivo `.env` (peça a Lucas)
 
 Tudo, exceto commandos Git, deve ser feito dentro do Docker container.
 
