@@ -19,16 +19,16 @@ chmod +x ./scripts/startup.sh && ./scripts/startup.sh
 ## Tecnologias principais
 
 #### Web Framework
-- fastify
+- [fastify](https://fastify.dev/docs/latest/)
 
 #### Database
-- postgres
+- [postgres](https://www.postgresql.org/)
 
 #### SQL Query Builder
-- kysely
+- [kysely](https://kysely.dev/docs/intro)
 
 #### Testing
-- vitest
+- [vitest](https://vitest.dev/guide/)
 
 ## Design Patterns
 
