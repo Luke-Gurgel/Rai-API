@@ -1,11 +1,9 @@
-import {
-  MaterialTable,
-  MaterialCategoryTable,
-  MaterialInventoryTable,
-} from "./MaterialTable";
+import { MaterialTable } from "./MaterialTable";
+import { MaterialCategoryTable } from "./MaterialCategoryTable";
+import { MaterialInventoryTable } from "./MaterialInventoryTable";
 
 export interface Database {
-  material: MaterialTable;
-  materialCategory: MaterialCategoryTable;
-  materialInventory: MaterialInventoryTable;
+  Material: MaterialTable;
+  MaterialCategory: MaterialCategoryTable;
+  MaterialInventory: MaterialInventoryTable;
 }

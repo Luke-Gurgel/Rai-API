@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import {
   NewMaterialCategory,
   MaterialCategoryUpdate,
-} from "db/types/MaterialTable";
+} from "db/types/MaterialCategoryTable";
 import {
   getMaterialCategories,
   createMaterialCategory,

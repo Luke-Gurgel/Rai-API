@@ -11,12 +11,12 @@ export interface MaterialRepo {
 }
 
 const getAll = (): Promise<Material[]> => {
-  return db.selectFrom("material").selectAll().execute();
+  return db.selectFrom("Material").selectAll().execute();
 };
 
 const create = (material: NewMaterial): Promise<{ materialId: number }> => {
   return db
-    .insertInto("material")
+    .insertInto("Material")
     .values({ ...material })
     .returning(["materialId"])
     .executeTakeFirstOrThrow();
@@ -28,7 +28,7 @@ const updateById = (
 ): Promise<UpdateResult> => {
   delete update.materialId;
   return db
-    .updateTable("material")
+    .updateTable("Material")
     .set({ ...update })
     .where("materialId", "=", id)
     .executeTakeFirst();
