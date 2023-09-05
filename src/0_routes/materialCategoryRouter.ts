@@ -1,5 +1,9 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { materialCategoryController } from "@/1_controllers/materialCategoryController";
+import {
+  createMaterialCategorySchema,
+  updateMaterialCategorySchema,
+} from "./schemas/materialCategory";
 
 export default async function materialCategoryRouter(
   server: FastifyInstance,
@@ -10,42 +14,15 @@ export default async function materialCategoryRouter(
     materialCategoryController.handleGetMaterialCategoriesRequest
   );
 
-  server.addSchema({
-    $id: "createMaterialCategory",
-    type: "object",
-    required: ["name"],
-    properties: { name: { type: "string" } },
-  });
-
   server.post(
     "/material-categories",
-    { schema: { body: { $ref: "createMaterialCategory#" } } },
+    { schema: createMaterialCategorySchema },
     materialCategoryController.handleCreateMaterialCategoryRequest
   );
 
-  server.addSchema({
-    $id: "updateMaterialCategory",
-    type: "object",
-    required: ["name", "materialCategoryId"],
-    properties: {
-      name: { type: "string" },
-      materialCategoryId: { type: "number" },
-    },
-  });
-
   server.put(
     "/material-categories/:id",
-    {
-      schema: {
-        body: { $ref: "updateMaterialCategory#" },
-        params: {
-          type: "object",
-          properties: {
-            id: { type: "number" },
-          },
-        },
-      },
-    },
+    { schema: updateMaterialCategorySchema },
     materialCategoryController.handleUpdateMaterialCategoryRequest
   );
 }
