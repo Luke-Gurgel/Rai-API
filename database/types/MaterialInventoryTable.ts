@@ -10,13 +10,12 @@ export interface MaterialInventoryTable {
   materialInventoryId: Generated<number>;
   materialId: number;
   lote: string;
-  lastPrice: number;
+  price: number;
   quantity: number;
   expDate: ColumnType<Date, string>;
-  lastPurchaseDate: ColumnType<Date, string>;
+  purchaseDate: ColumnType<Date, string>;
 }
 
-export type MaterialMaterialInventory = Selectable<MaterialInventoryTable>;
-export type NewMaterialMaterialInventory = Insertable<MaterialInventoryTable>;
-export type MaterialMaterialInventoryUpdate =
-  Updateable<MaterialInventoryTable>;
+export type MaterialInventory = Selectable<MaterialInventoryTable>;
+export type NewMaterialInventory = Insertable<MaterialInventoryTable>;
+export type MaterialInventoryUpdate = Updateable<MaterialInventoryTable>;

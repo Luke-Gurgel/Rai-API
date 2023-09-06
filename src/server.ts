@@ -12,6 +12,7 @@ server.get("/", async function handler(request, reply) {
 
 server.register(require("./0_routes/materialRouter"));
 server.register(require("./0_routes/materialCategoryRouter"));
+server.register(require("./0_routes/materialInventoryRouter"));
 
 server
   .listen({ port: Number(PORT), host: "0.0.0.0" })

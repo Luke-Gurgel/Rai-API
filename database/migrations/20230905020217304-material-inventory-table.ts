@@ -8,10 +8,10 @@ export async function up(db: Kysely<any>): Promise<void> {
       col.references("Material.materialId")
     )
     .addColumn("lote", "varchar(50)", (col) => col.notNull())
-    .addColumn("lastPrice", "numeric(10, 2)", (col) => col.notNull())
+    .addColumn("price", "numeric(10, 2)", (col) => col.notNull())
     .addColumn("quantity", "integer", (col) => col.notNull())
     .addColumn("expDate", "date", (col) => col.notNull())
-    .addColumn("lastPurchaseDate", "date", (col) => col.notNull())
+    .addColumn("purchaseDate", "date", (col) => col.notNull())
     .execute();
 }
 
