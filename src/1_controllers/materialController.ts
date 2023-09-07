@@ -11,8 +11,8 @@ const handleGetMaterialsRequest = async (
   res: FastifyReply
 ) => {
   try {
-    const materialList = await getMaterials();
-    return res.status(200).send({ materialList });
+    const materials = await getMaterials();
+    return res.status(200).send(materials);
   } catch (error) {
     return res.status(400).send(error);
   }

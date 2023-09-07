@@ -1,7 +1,7 @@
 import { Generated, Insertable, Selectable, Updateable } from "kysely";
 
 export interface MaterialCategoryTable {
-  materialCategoryId: Generated<number>;
+  categoryId: Generated<number>;
   name: string;
 }
 

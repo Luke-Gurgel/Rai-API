@@ -7,7 +7,7 @@ import {
 } from "kysely";
 
 export interface MaterialInventoryTable {
-  materialInventoryId: Generated<number>;
+  inventoryId: Generated<number>;
   materialId: number;
   lote: string;
   price: number;

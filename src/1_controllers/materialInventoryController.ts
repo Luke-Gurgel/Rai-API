@@ -13,8 +13,8 @@ const handleCreateMaterialInventoryRequest = async (
   res: FastifyReply
 ) => {
   try {
-    const { materialInventoryId } = await createMaterialInventory(req.body);
-    return res.status(201).send({ materialInventoryId });
+    const { inventoryId } = await createMaterialInventory(req.body);
+    return res.status(201).send({ inventoryId });
   } catch (error) {
     return res.status(400).send(error);
   }

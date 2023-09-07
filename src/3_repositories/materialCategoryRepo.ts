@@ -8,7 +8,7 @@ import {
 export interface MaterialCategoryRepo {
   getAll: () => Promise<MaterialCategory[]>;
   create: (name: string) => Promise<{
-    materialCategoryId: number;
+    categoryId: number;
   }>;
   updateById: (
     id: number,
@@ -19,12 +19,12 @@ export interface MaterialCategoryRepo {
 const create = (
   name: string
 ): Promise<{
-  materialCategoryId: number;
+  categoryId: number;
 }> => {
   return db
-    .insertInto("MaterialCategory")
+    .insertInto("material_category")
     .values({ name })
-    .returning(["materialCategoryId"])
+    .returning(["categoryId"])
     .executeTakeFirstOrThrow();
 };
 
@@ -32,16 +32,16 @@ const updateById = (
   id: number,
   update: MaterialCategoryUpdate
 ): Promise<UpdateResult> => {
-  delete update.materialCategoryId;
+  delete update.categoryId;
   return db
-    .updateTable("MaterialCategory")
+    .updateTable("material_category")
     .set({ ...update })
-    .where("materialCategoryId", "=", id)
+    .where("categoryId", "=", id)
     .executeTakeFirst();
 };
 
 const getAll = (): Promise<MaterialCategory[]> => {
-  return db.selectFrom("MaterialCategory").selectAll().execute();
+  return db.selectFrom("material_category").selectAll().execute();
 };
 
 export const materialCategoryRepo: MaterialCategoryRepo = {

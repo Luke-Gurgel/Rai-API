@@ -8,7 +8,7 @@ import {
 export interface MaterialInventoryRepo {
   create: (
     materialInventory: NewMaterialInventory
-  ) => Promise<{ materialInventoryId: number }>;
+  ) => Promise<{ inventoryId: number }>;
   updateById: (
     id: number,
     update: MaterialInventoryUpdate
@@ -17,11 +17,11 @@ export interface MaterialInventoryRepo {
 
 const create = (
   materialInventory: NewMaterialInventory
-): Promise<{ materialInventoryId: number }> => {
+): Promise<{ inventoryId: number }> => {
   return db
-    .insertInto("MaterialInventory")
+    .insertInto("material_inventory")
     .values({ ...materialInventory })
-    .returning(["materialInventoryId"])
+    .returning(["inventoryId"])
     .executeTakeFirstOrThrow();
 };
 
@@ -29,11 +29,11 @@ const updateById = (
   id: number,
   update: MaterialInventoryUpdate
 ): Promise<UpdateResult> => {
-  delete update.materialInventoryId;
+  delete update.inventoryId;
   return db
-    .updateTable("MaterialInventory")
+    .updateTable("material_inventory")
     .set({ ...update })
-    .where("materialInventoryId", "=", id)
+    .where("inventoryId", "=", id)
     .executeTakeFirst();
 };
 

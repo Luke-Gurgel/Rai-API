@@ -2,7 +2,7 @@ const updateMaterialBodySchema = {
   type: "object",
   properties: {
     name: { type: "string" },
-    materialCategoryId: { type: "number" },
+    categoryId: { type: "number" },
     principioAtivo: { type: "string" },
     grupoQuimico: { type: "string" },
     minQuantity: { type: "number" },
@@ -26,7 +26,7 @@ export const createMaterialSchema = {
     ...updateMaterialBodySchema,
     required: [
       "name",
-      "materialCategoryId",
+      "categoryId",
       "principioAtivo",
       "grupoQuimico",
       "minQuantity",

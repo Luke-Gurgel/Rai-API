@@ -2,7 +2,7 @@ import { Generated, Insertable, Selectable, Updateable } from "kysely";
 
 export interface MaterialTable {
   materialId: Generated<number>;
-  materialCategoryId: number;
+  categoryId: number;
   principioAtivo: string;
   grupoQuimico: string;
   minQuantity: number;

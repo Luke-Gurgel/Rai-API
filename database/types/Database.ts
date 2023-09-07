@@ -3,7 +3,7 @@ import { MaterialCategoryTable } from "./MaterialCategoryTable";
 import { MaterialInventoryTable } from "./MaterialInventoryTable";
 
 export interface Database {
-  Material: MaterialTable;
-  MaterialCategory: MaterialCategoryTable;
-  MaterialInventory: MaterialInventoryTable;
+  material: MaterialTable;
+  material_category: MaterialCategoryTable;
+  material_inventory: MaterialInventoryTable;
 }

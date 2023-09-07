@@ -2,10 +2,10 @@ import { Kysely } from "kysely";
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .createTable("MaterialInventory")
-    .addColumn("materialInventoryId", "serial", (col) => col.primaryKey())
+    .createTable("material_inventory")
+    .addColumn("inventoryId", "serial", (col) => col.primaryKey())
     .addColumn("materialId", "integer", (col) =>
-      col.references("Material.materialId")
+      col.references("material.materialId")
     )
     .addColumn("lote", "varchar(50)", (col) => col.notNull())
     .addColumn("price", "numeric(10, 2)", (col) => col.notNull())
@@ -16,5 +16,5 @@ export async function up(db: Kysely<any>): Promise<void> {
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable("MaterialInventory").execute();
+  await db.schema.dropTable("material_inventory").execute();
 }
