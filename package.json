@@ -7,7 +7,6 @@
     "dev": "tsx watch src/server.ts",
     "db:migrate": "tsx scripts/migrator.ts",
     "db:seed": "tsx database/seeders/index.ts",
-    "db:seed-undo": "tsx database/seeders/index.ts down",
     "db:create-migration": "node scripts/createMigration.js",
     "build": "tsup src",
     "test": "vitest"

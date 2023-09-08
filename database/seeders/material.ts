@@ -36,4 +36,12 @@ const undoSeed = () => {
   return db.deleteFrom("material").execute();
 };
 
+const arg = process.argv[2];
+
+if (arg === "up") {
+  seed();
+} else if (arg === "down") {
+  undoSeed();
+}
+
 export const materialSeeder = { seed, undoSeed };

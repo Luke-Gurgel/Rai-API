@@ -15,4 +15,12 @@ const undoSeed = () => {
   return db.deleteFrom("material_category").execute();
 };
 
+const arg = process.argv[2];
+
+if (arg === "up") {
+  seed();
+} else if (arg === "down") {
+  undoSeed();
+}
+
 export const categoriesSeeder = { seed, undoSeed };

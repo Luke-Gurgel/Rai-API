@@ -39,4 +39,12 @@ const undoSeed = () => {
   return db.deleteFrom("material_inventory").execute();
 };
 
+const arg = process.argv[2];
+
+if (arg === "up") {
+  seed();
+} else if (arg === "down") {
+  undoSeed();
+}
+
 export const inventorySeeder = { seed, undoSeed };
