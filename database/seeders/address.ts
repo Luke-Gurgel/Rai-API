@@ -6,6 +6,7 @@ const seed = () => {
     .values([
       {
         addressId: 1,
+        clientId: 1,
         street: "Rua Principal",
         number: 123,
         neighborhood: "Bairro Central",
@@ -16,22 +17,13 @@ const seed = () => {
       },
       {
         addressId: 2,
+        clientId: 2,
         street: "Avenida Central",
         number: 456,
         neighborhood: "Bairro Novo",
         cep: "40150140",
         city: "Cidade Pequena",
         state: "SP",
-      },
-      {
-        addressId: 3,
-        street: "Rua das Flores",
-        number: 789,
-        neighborhood: "Bairro Colorido",
-        cep: "41250587",
-        city: "Cidade Alegre",
-        state: "CA",
-        complement: "Casa Amarela",
       },
     ])
     .execute();

@@ -5,7 +5,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .createTable("material_inventory")
     .addColumn("inventoryId", "serial", (col) => col.primaryKey())
     .addColumn("materialId", "integer", (col) =>
-      col.references("material.materialId")
+      col.references("material.materialId").onDelete("cascade").notNull()
     )
     .addColumn("lote", "varchar(50)", (col) => col.notNull())
     .addColumn("price", "numeric(10, 2)", (col) => col.notNull())

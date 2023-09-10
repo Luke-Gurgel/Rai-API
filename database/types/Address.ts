@@ -2,6 +2,7 @@ import { Generated, Insertable, Selectable, Updateable } from "kysely";
 
 export interface AddressTable {
   addressId: Generated<number>;
+  clientId: number;
   street: string;
   number: number;
   neighborhood: string;
