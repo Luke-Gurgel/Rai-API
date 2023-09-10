@@ -1,5 +1,7 @@
 import { db } from "@/database";
-import { UpdateResult } from "kysely";
+import { Database } from "db/types/Database";
+import { jsonArrayFrom } from "kysely/helpers/postgres";
+import { ExpressionBuilder, SelectExpression, UpdateResult } from "kysely";
 import {
   NewMaterialInventory,
   MaterialInventoryUpdate,
@@ -13,6 +15,9 @@ export interface MaterialInventoryRepo {
     id: number,
     update: MaterialInventoryUpdate
   ) => Promise<UpdateResult>;
+  withInventory: (
+    eb: ExpressionBuilder<Database, "material">
+  ) => SelectExpression<Database, "material">;
 }
 
 const create = (
@@ -37,7 +42,17 @@ const updateById = (
     .executeTakeFirst();
 };
 
+const withInventory = (eb: ExpressionBuilder<Database, "material">) => {
+  return jsonArrayFrom(
+    eb
+      .selectFrom("material_inventory")
+      .selectAll()
+      .whereRef("material_inventory.materialId", "=", "material.materialId")
+  ).as("inventory");
+};
+
 export const materialInventoryRepo: MaterialInventoryRepo = {
   create,
   updateById,
+  withInventory,
 };

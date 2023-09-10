@@ -1,45 +1,33 @@
 import { db } from "@/database";
-import { UpdateResult, sql } from "kysely";
+import { UpdateResult } from "kysely";
+import { materialCategoryRepo } from "./materialCategoryRepo";
+import { materialInventoryRepo } from "./materialInventoryRepo";
+import { MaterialInventory } from "db/types/MaterialInventoryTable";
 import { Material, NewMaterial, MaterialUpdate } from "db/types/MaterialTable";
 
 export interface MaterialRepo {
-  getAll: () => Promise<Material[]>;
+  getAll: () => Promise<GetAllMaterialsResult[]>;
   create: (material: NewMaterial) => Promise<{
     materialId: number;
   }>;
   updateById: (id: number, update: MaterialUpdate) => Promise<UpdateResult>;
 }
 
-const getAll = async (): Promise<any[]> => {
-  const out = await sql`
-    SELECT
-      m."materialId",
-      m.name,
-      m."grupoQuimico",
-      m."principioAtivo",
-      m."minQuantity",
-      mc.name AS category,
-      COALESCE(
-        (SELECT json_agg(json_build_object(
-          'inventoryId', mi."inventoryId",
-          'lote', mi.lote,
-          'price', mi.price,
-          'quantity', mi.quantity,
-          'expDate', mi."expDate",
-          'purchaseDate', mi."purchaseDate"
-        )) 
-        FROM material_inventory mi
-        WHERE mi."materialId" = m."materialId"), '[]'
-      ) AS inventory
-    FROM
-      material m
-    JOIN
-      material_category mc ON m."categoryId" = mc."categoryId"
-    ORDER BY
-      m."materialId";
-  `.execute(db);
+interface GetAllMaterialsResult extends Material {
+  category: string;
+  inventory: MaterialInventory[];
+}
 
-  return out.rows;
+const getAll = async (): Promise<GetAllMaterialsResult[]> => {
+  const out = await db
+    .selectFrom("material")
+    .selectAll()
+    .select((eb) => [
+      materialCategoryRepo.withCategory(eb),
+      materialInventoryRepo.withInventory(eb),
+    ])
+    .execute();
+  return out as unknown as GetAllMaterialsResult[];
 };
 
 const create = (material: NewMaterial): Promise<{ materialId: number }> => {

@@ -1,5 +1,10 @@
 import { db } from "@/database";
-import { UpdateResult } from "kysely";
+import { Database } from "db/types/Database";
+import {
+  UpdateResult,
+  ExpressionBuilder,
+  AliasedSelectQueryBuilder,
+} from "kysely";
 import {
   MaterialCategory,
   MaterialCategoryUpdate,
@@ -14,6 +19,9 @@ export interface MaterialCategoryRepo {
     id: number,
     update: MaterialCategoryUpdate
   ) => Promise<UpdateResult>;
+  withCategory: (
+    eb: ExpressionBuilder<Database, "material">
+  ) => AliasedSelectQueryBuilder<{ name: string }, "category">;
 }
 
 const create = (
@@ -44,8 +52,17 @@ const getAll = (): Promise<MaterialCategory[]> => {
   return db.selectFrom("material_category").selectAll().execute();
 };
 
+const withCategory = (eb: ExpressionBuilder<Database, "material">) => {
+  return eb
+    .selectFrom("material_category")
+    .select("name")
+    .whereRef("categoryId", "=", "material.categoryId")
+    .as("category");
+};
+
 export const materialCategoryRepo: MaterialCategoryRepo = {
   getAll,
   create,
   updateById,
+  withCategory,
 };
