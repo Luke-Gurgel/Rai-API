@@ -1,8 +1,8 @@
-import { AddressTable } from "./Address";
+import { AddressTable } from "./AddressTable";
 import { MaterialTable } from "./MaterialTable";
 import { MaterialCategoryTable } from "./MaterialCategoryTable";
 import { MaterialInventoryTable } from "./MaterialInventoryTable";
-import { ClientTable } from "./Client";
+import { ClientTable } from "./ClientTable";
 
 export interface Database {
   material: MaterialTable;

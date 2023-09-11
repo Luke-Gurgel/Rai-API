@@ -1,5 +1,5 @@
 import { db } from "@/database";
-import { ClientType } from "../types/Client";
+import { ClientType } from "../types/ClientTable";
 
 const seed = () => {
   return db
