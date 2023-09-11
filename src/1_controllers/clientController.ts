@@ -1,7 +1,11 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { createClient, getClients } from "@/2_useCases/clientUseCases";
-import { NewClient } from "db/types/ClientTable";
-import { NewAddress } from "db/types/AddressTable";
+import { NewClient, ClientUpdate } from "db/types/ClientTable";
+import { NewAddress, AddressUpdate } from "db/types/AddressTable";
+import {
+  getClients,
+  createClient,
+  updateClient,
+} from "@/2_useCases/clientUseCases";
 
 const handleGeClientsRequest = async (_: FastifyRequest, res: FastifyReply) => {
   try {
@@ -25,21 +29,25 @@ const handleCreateClientRequest = async (
   }
 };
 
-// const handleUpdateMaterialRequest = async (
-//   req: FastifyRequest<{ Body: MaterialUpdate; Params: { id: number } }>,
-//   res: FastifyReply
-// ) => {
-//   try {
-//     const { id } = req.params;
-//     await updateMaterial(id, req.body);
-//     return res.status(200).send();
-//   } catch (error) {
-//     return res.status(400).send(error);
-//   }
-// };
+const handleUpdateClientRequest = async (
+  req: FastifyRequest<{
+    Body: { client: ClientUpdate; address: AddressUpdate };
+    Params: { id: number };
+  }>,
+  res: FastifyReply
+) => {
+  try {
+    const { id } = req.params;
+    const { client, address } = req.body;
+    await updateClient(id, client, address);
+    return res.status(200).send();
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+};
 
 export const clientController = {
   handleGeClientsRequest,
   handleCreateClientRequest,
-  // handleUpdateMaterialRequest,
+  handleUpdateClientRequest,
 };

@@ -1,4 +1,3 @@
-import { db } from "@/database";
 import { Database } from "db/types/Database";
 import { jsonObjectFrom } from "kysely/helpers/postgres";
 import { Address, NewAddress, AddressUpdate } from "db/types/AddressTable";
@@ -14,7 +13,11 @@ export interface AddressRepo {
     address: NewAddress,
     transaction: Transaction<Database>
   ) => Promise<{ addressId: number }>;
-  updateById: (id: number, update: AddressUpdate) => Promise<UpdateResult>;
+  updateByClientId: (
+    clientId: number,
+    update: AddressUpdate,
+    transaction: Transaction<Database>
+  ) => Promise<UpdateResult>;
   withAddress: (
     eb: ExpressionBuilder<Database, "client">
   ) => AliasedRawBuilder<Address | null, "address">;
@@ -31,15 +34,16 @@ const create = (
     .executeTakeFirstOrThrow();
 };
 
-const updateById = (
-  id: number,
-  update: AddressUpdate
+const updateByClientId = (
+  clientId: number,
+  update: AddressUpdate,
+  transaction: Transaction<Database>
 ): Promise<UpdateResult> => {
   delete update.addressId;
-  return db
+  return transaction
     .updateTable("address")
     .set({ ...update })
-    .where("addressId", "=", id)
+    .where("clientId", "=", clientId)
     .executeTakeFirst();
 };
 
@@ -54,6 +58,6 @@ const withAddress = (eb: ExpressionBuilder<Database, "client">) => {
 
 export const addressRepo: AddressRepo = {
   create,
-  updateById,
+  updateByClientId,
   withAddress,
 };

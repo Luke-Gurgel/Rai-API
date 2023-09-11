@@ -10,7 +10,11 @@ export interface ClientRepo {
     client: NewClient,
     transaction: Transaction<Database>
   ) => Promise<{ clientId: number }>;
-  updateById: (id: number, update: ClientUpdate) => Promise<UpdateResult>;
+  updateById: (
+    id: number,
+    update: ClientUpdate,
+    transaction: Transaction<Database>
+  ) => Promise<UpdateResult>;
 }
 
 const getAll = (): Promise<Client[]> => {
@@ -34,10 +38,11 @@ const create = (
 
 const updateById = (
   id: number,
-  update: ClientUpdate
+  update: ClientUpdate,
+  transaction: Transaction<Database>
 ): Promise<UpdateResult> => {
   delete update.clientId;
-  return db
+  return transaction
     .updateTable("client")
     .set({ ...update })
     .where("clientId", "=", id)

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { clientController } from "@/1_controllers/clientController";
-import { createClientSchema } from "./schemas/client";
+import { createClientSchema, updateClientSchema } from "./schemas/client";
 
 export default async function materialCategoryRouter(
   server: FastifyInstance,
@@ -14,9 +14,9 @@ export default async function materialCategoryRouter(
     clientController.handleCreateClientRequest
   );
 
-  // server.put(
-  //   "/material-categories/:id",
-  //   { schema: updateMaterialCategorySchema },
-  //   clientController.handleUpdateMaterialCategoryRequest
-  // );
+  server.patch(
+    "/clients/:id",
+    { schema: updateClientSchema },
+    clientController.handleUpdateClientRequest
+  );
 }
