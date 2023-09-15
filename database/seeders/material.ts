@@ -1,7 +1,9 @@
 import { db } from "@/database";
+import { Transaction } from "kysely";
+import { Database } from "db/types/Database";
 
-const seed = () => {
-  return db
+const seed = (transaction?: Transaction<Database>) => {
+  return (transaction || db)
     .insertInto("material")
     .values([
       {
@@ -32,8 +34,8 @@ const seed = () => {
     .execute();
 };
 
-const undoSeed = () => {
-  return db.deleteFrom("material").execute();
+const undoSeed = (transaction?: Transaction<Database>) => {
+  return (transaction || db).deleteFrom("material").execute();
 };
 
 const arg = process.argv[2];

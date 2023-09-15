@@ -1,8 +1,10 @@
 import { db } from "@/database";
+import { Transaction } from "kysely";
+import { Database } from "db/types/Database";
 import { ClientType } from "../types/ClientTable";
 
-const seed = () => {
-  return db
+const seed = (transaction?: Transaction<Database>) => {
+  return (transaction || db)
     .insertInto("client")
     .values([
       {
@@ -17,7 +19,7 @@ const seed = () => {
       {
         clientId: 2,
         name: "Lucas",
-        cpf: "5340300501",
+        cpf: "05340300501",
         email: "luc.gur@gmail.com",
         tel: "71983748585",
         type: ClientType.PF,
@@ -26,8 +28,8 @@ const seed = () => {
     .execute();
 };
 
-const undoSeed = () => {
-  return db.deleteFrom("client").execute();
+const undoSeed = (transaction?: Transaction<Database>) => {
+  return (transaction || db).deleteFrom("client").execute();
 };
 
 const arg = process.argv[2];

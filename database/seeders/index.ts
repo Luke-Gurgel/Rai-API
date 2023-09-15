@@ -1,23 +1,32 @@
+import { db } from "@/database";
 import { categoriesSeeder } from "./materialCategory";
 import { inventorySeeder } from "./materialInventory";
 import { materialSeeder } from "./material";
 import { addressSeeder } from "./address";
 import { clientSeeder } from "./client";
+import { serviceSeeder } from "./service";
+import { serviceMaterialSeeder } from "./serviceMaterial";
 
 const arg = process.argv[2];
 
 if (arg === "down") {
-  inventorySeeder
-    .undoSeed()
-    .then(materialSeeder.undoSeed)
-    .then(categoriesSeeder.undoSeed)
-    .then(clientSeeder.undoSeed)
-    .then(addressSeeder.undoSeed);
+  db.transaction().execute(async (trx) => {
+    await inventorySeeder.undoSeed(trx);
+    await materialSeeder.undoSeed(trx);
+    await categoriesSeeder.undoSeed(trx);
+    await clientSeeder.undoSeed(trx);
+    await addressSeeder.undoSeed(trx);
+    await serviceSeeder.undoSeed(trx);
+    await serviceMaterialSeeder.undoSeed(trx);
+  });
 } else {
-  categoriesSeeder
-    .seed()
-    .then(materialSeeder.seed)
-    .then(inventorySeeder.seed)
-    .then(clientSeeder.seed)
-    .then(addressSeeder.seed);
+  db.transaction().execute(async (trx) => {
+    await categoriesSeeder.seed(trx);
+    await materialSeeder.seed(trx);
+    await inventorySeeder.seed(trx);
+    await clientSeeder.seed(trx);
+    await addressSeeder.seed(trx);
+    await serviceSeeder.seed(trx);
+    await serviceMaterialSeeder.seed(trx);
+  });
 }

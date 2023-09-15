@@ -4,17 +4,18 @@ import { Database } from "db/types/Database";
 
 const seed = (transaction?: Transaction<Database>) => {
   return (transaction || db)
-    .insertInto("material_category")
+    .insertInto("service")
     .values([
-      { name: "RATO", categoryId: 1 },
-      { name: "INSETO", categoryId: 2 },
-      { name: "MATO", categoryId: 3 },
+      { name: "detetização", serviceId: 1 },
+      { name: "controle de moscas", serviceId: 2 },
+      { name: "manejo de pombos", serviceId: 3 },
+      { name: "desratização", serviceId: 4 },
     ])
     .execute();
 };
 
 const undoSeed = (transaction?: Transaction<Database>) => {
-  return (transaction || db).deleteFrom("material_category").execute();
+  return (transaction || db).deleteFrom("service").execute();
 };
 
 const arg = process.argv[2];
@@ -25,4 +26,4 @@ if (arg === "up") {
   undoSeed();
 }
 
-export const categoriesSeeder = { seed, undoSeed };
+export const serviceSeeder = { seed, undoSeed };
