@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { clientController } from "@/1_controllers/clientController";
 import { createClientSchema, updateClientSchema } from "./schemas/client";
 
-export default async function materialCategoryRouter(
+export default async function clientRouter(
   server: FastifyInstance,
   options: FastifyPluginOptions
 ) {
