@@ -5,6 +5,7 @@ import { MaterialInventoryTable } from "./MaterialInventoryTable";
 import { ClientTable } from "./ClientTable";
 import { ServiceTable } from "./ServiceTable";
 import { ServiceMaterialTable } from "./ServiceMaterialTable";
+import { ServiceOrderTable } from "./ServiceOrderTable";
 
 export interface Database {
   material: MaterialTable;
@@ -14,4 +15,5 @@ export interface Database {
   client: ClientTable;
   service: ServiceTable;
   service_material: ServiceMaterialTable;
+  service_order: ServiceOrderTable;
 }

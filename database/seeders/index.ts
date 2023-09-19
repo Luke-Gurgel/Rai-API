@@ -6,6 +6,7 @@ import { addressSeeder } from "./address";
 import { clientSeeder } from "./client";
 import { serviceSeeder } from "./service";
 import { serviceMaterialSeeder } from "./serviceMaterial";
+import { serviceOrderSeeder } from "./serviceOrder";
 
 const arg = process.argv[2];
 
@@ -18,6 +19,7 @@ if (arg === "down") {
     await addressSeeder.undoSeed(trx);
     await serviceSeeder.undoSeed(trx);
     await serviceMaterialSeeder.undoSeed(trx);
+    await serviceOrderSeeder.undoSeed(trx);
   });
 } else {
   db.transaction().execute(async (trx) => {
@@ -28,5 +30,6 @@ if (arg === "down") {
     await addressSeeder.seed(trx);
     await serviceSeeder.seed(trx);
     await serviceMaterialSeeder.seed(trx);
+    await serviceOrderSeeder.seed(trx);
   });
 }
