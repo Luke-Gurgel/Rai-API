@@ -6,6 +6,17 @@ const server = Fastify({
   logger: true,
 });
 
+server.addHook("onRequest", (request, reply, done) => {
+  reply.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  reply.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,PUT,PATCH,POST,DELETE"
+  );
+  reply.header("Access-Control-Allow-Headers", "Content-Type");
+  reply.header("Access-Control-Allow-Credentials", "true");
+  done();
+});
+
 server.get("/", async function handler(request, reply) {
   return { hello: "world" };
 });
