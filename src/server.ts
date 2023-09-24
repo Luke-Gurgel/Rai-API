@@ -15,6 +15,7 @@ server.register(require("./0_routes/materialCategoryRouter"));
 server.register(require("./0_routes/materialInventoryRouter"));
 server.register(require("./0_routes/clientRouter"));
 server.register(require("./0_routes/serviceRouter"));
+server.register(require("./0_routes/serviceOrderRouter"));
 
 server
   .listen({ port: Number(PORT), host: "0.0.0.0" })

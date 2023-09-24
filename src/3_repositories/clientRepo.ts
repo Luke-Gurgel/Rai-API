@@ -1,7 +1,7 @@
 import { db } from "@/database";
 import { addressRepo } from "./addressRepo";
 import { Database } from "db/types/Database";
-import { UpdateResult, Transaction } from "kysely";
+import { Transaction, UpdateResult } from "kysely";
 import { Client, NewClient, ClientUpdate } from "db/types/ClientTable";
 
 export interface ClientRepo {
