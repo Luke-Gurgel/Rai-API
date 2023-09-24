@@ -25,7 +25,7 @@ const getAll = async (): Promise<GetServicesResponse[]> => {
         SELECT json_agg(sm."materialId")
         FROM service_material sm
         WHERE s."serviceId" = sm."serviceId"
-      ) AS materialIds
+      ) AS "materialIds"
     FROM
       service s;
   `.execute(db);
