@@ -25,7 +25,7 @@ export const createServiceSchema = {
   },
 };
 
-export const updateClientSchema = {
+export const updateServiceSchema = {
   body: {
     type: "object",
     properties: { ...serviceSchema },

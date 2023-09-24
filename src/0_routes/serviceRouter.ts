@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { serviceController } from "@/1_controllers/serviceController";
-import { createServiceSchema, updateClientSchema } from "./schemas/service";
+import { createServiceSchema, updateServiceSchema } from "./schemas/service";
 
 export default async function serviceRouter(
   server: FastifyInstance,
@@ -16,7 +16,7 @@ export default async function serviceRouter(
 
   server.patch(
     "/services/:id",
-    { schema: updateClientSchema },
+    { schema: updateServiceSchema },
     serviceController.handleUpdateServiceRequest
   );
 }
