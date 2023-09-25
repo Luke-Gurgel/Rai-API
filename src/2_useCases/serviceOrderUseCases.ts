@@ -6,7 +6,7 @@ import {
 } from "db/types/ServiceOrderTable";
 
 export const getServiceOrders = async (month: number, year: number) => {
-  const fromDate = new Date(year, month - 1, 1);
+  const fromDate = new Date(year, month, 1);
   const toDate = addMonths(fromDate, 1);
   return await serviceOrderRepo.getByPeriod(fromDate, toDate);
 };

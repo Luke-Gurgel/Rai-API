@@ -20,6 +20,7 @@ export interface ServiceRepo {
 const getAll = async (): Promise<GetServicesResponse[]> => {
   const { rows } = await sql<GetServicesResponse>`
     SELECT
+      s."serviceId",
       s.name,
       (
         SELECT json_agg(sm."materialId")
