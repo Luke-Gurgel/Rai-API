@@ -46,7 +46,14 @@ const withInventory = (eb: ExpressionBuilder<Database, "material">) => {
   return jsonArrayFrom(
     eb
       .selectFrom("material_inventory")
-      .selectAll()
+      .select([
+        "inventoryId",
+        "lote",
+        "price",
+        "expDate",
+        "quantity",
+        "purchaseDate",
+      ])
       .whereRef("material_inventory.materialId", "=", "material.materialId")
   ).as("inventory");
 };

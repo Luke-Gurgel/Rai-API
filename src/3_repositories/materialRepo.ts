@@ -21,7 +21,13 @@ interface GetAllMaterialsResult extends Material {
 const getAll = async (): Promise<GetAllMaterialsResult[]> => {
   const out = await db
     .selectFrom("material")
-    .selectAll()
+    .select([
+      "materialId",
+      "name",
+      "minQuantity",
+      "grupoQuimico",
+      "principioAtivo",
+    ])
     .select((eb) => [
       materialCategoryRepo.withCategory(eb),
       materialInventoryRepo.withInventory(eb),
