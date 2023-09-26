@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 
 const { PORT } = process.env;
 
@@ -6,15 +7,9 @@ const server = Fastify({
   logger: true,
 });
 
-server.addHook("onRequest", (request, reply, done) => {
-  reply.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  reply.header(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,PUT,PATCH,POST,DELETE"
-  );
-  reply.header("Access-Control-Allow-Headers", "Content-Type");
-  reply.header("Access-Control-Allow-Credentials", "true");
-  done();
+server.register(cors, {
+  origin: "http://localhost:3000",
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
 });
 
 server.get("/", async function handler(request, reply) {
